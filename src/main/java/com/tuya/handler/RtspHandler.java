@@ -93,7 +93,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
 	
         RtpPacketization rtpPacket = new RtpPacketization(ctx, filePath);
         rtpThread = new Thread(rtpPacket);
-        //rtpThread.start();
+        rtpThread.start();
     }
     private void handleRtspSETUPMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
