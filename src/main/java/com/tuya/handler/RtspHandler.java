@@ -87,7 +87,8 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response.headers().set(RtspHeaderNames.SESSION,sessionID);
         response.headers().set(RtspHeaderNames.RTP_INFO,rtpInfo);
         response.headers().set(RtspHeaderNames.RANGE,"npt=0.000-");
-        writeResponseWithFuture(ctx, request, response);
+
+        //writeResponseWithFuture(ctx, request, response);
 
         showResponse(response);
 	
