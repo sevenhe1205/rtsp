@@ -57,12 +57,13 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
     }
 
     private void handleRtspPAUSEMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
+        showRequest(request);
         // TODO Auto-generated method stub
         System.out.println("PAUSE NOT YET");
     }
 
     private void handleRtspPLAYMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
-	System.out.println("request "+request);
+	    showRequest(request);
         FullHttpResponse response = null;
         String sessionID = request.headers().get(RtspHeaderNames.SESSION);
         String uri = request.uri();
@@ -87,7 +88,8 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         //response.headers().set(RtspHeaderNames.RTP_INFO,rtpInfo);
         //response.headers().set(RtspHeaderNames.RANGE,"npt=0.000-");
         writeResponseWithFuture(ctx, request, response);
-	System.out.println("response "+response);
+
+        showResponse(response);
 	
         RtpPacketization rtpPacket = new RtpPacketization(ctx, filePath);
         rtpThread = new Thread(rtpPacket);
@@ -95,7 +97,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
     }
     private void handleRtspSETUPMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
-        System.out.println(request);
+        showRequest(request);
 
         FullHttpResponse response = null;
 
@@ -131,14 +133,14 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response.headers().set(RtspHeaderNames.CSEQ, request.headers().get(RtspHeaderNames.CSEQ));
         response.headers().set(RtspHeaderNames.TRANSPORT, serverTransport);
         response.headers().set(RtspHeaderNames.SESSION,"1");
-
+        showResponse(response);
         writeResponseWithFuture(ctx,request,response);
 
     }
 
     private void handleRtspDESCRIBEMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
-        System.out.println(request);
+        showRequest(request);
 
         String uri = request.uri();
         String ipAddress = ctx.channel().localAddress().toString();
@@ -157,7 +159,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response.headers().set(RtspHeaderNames.CONTENT_LENGTH,String.valueOf(sdp.length()));
         response.content().writeBytes(buffer);
         buffer.release();
-
+        showResponse(response);
         writeResponseWithFuture(ctx,request,response);
     }
 
@@ -198,7 +200,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
 
     private void handleRtspOPTIONSMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
-        System.out.println(request);
+        showRequest(request);
         String options = RtspMethods.OPTIONS.name()+", "+RtspMethods.DESCRIBE.name()+", "+RtspMethods.SETUP.name()
                 +", "+RtspMethods.TEARDOWN.name()+", "+RtspMethods.PLAY.name()+", "+ RtspMethods.PAUSE.name();
 
@@ -212,7 +214,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
 
         }
         response.headers().set(RtspHeaderNames.PUBLIC,options);
-
+        showResponse(response);
         writeResponseWithFuture(ctx,request,response);
 
     }
@@ -283,4 +285,26 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
    private static String filePath(){
 	return "/home/heshaoqiong/packet/DarwinStreamingSrvrlinux-Linux/sample_h264_300kbit.mp4";
 	}
+
+
+	private void showRequest(DefaultHttpRequest request){
+        System.out.println();
+        System.out.println("====================requeset==========================");
+        System.out.println();
+        System.out.println(request);
+        System.out.println();
+        System.out.println("======================================================");
+        System.out.println();
+    }
+
+    private void showResponse(FullHttpResponse response){
+        System.out.println();
+        System.out.println("====================response==========================");
+        System.out.println();
+        System.out.println(response);
+        System.out.println();
+        System.out.println("======================================================");
+        System.out.println();
+    }
+
 }
