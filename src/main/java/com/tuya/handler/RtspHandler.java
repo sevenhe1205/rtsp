@@ -89,9 +89,17 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response.headers().set(RtspHeaderNames.SESSION,sessionID);
         response.headers().set(RtspHeaderNames.RTP_INFO,rtpInfo);
         response.headers().set(RtspHeaderNames.RANGE,"npt=0.000-");
-
+        try {
+            Thread.sleep(1000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         writeResponseWithFuture(ctx, request, response);
-
+        try {
+            Thread.sleep(1000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         RtpPacketization rtpPacket = new RtpPacketization(ctx, filePath);
         rtpThread = new Thread(rtpPacket);
         rtpThread.start();
