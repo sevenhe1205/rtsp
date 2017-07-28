@@ -8,6 +8,8 @@ import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.rtsp.RtspDecoder;
 import io.netty.handler.codec.rtsp.RtspEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.*;
 
 import javax.net.ssl.SSLContext;
@@ -40,6 +42,7 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("decoder",new RtspDecoder());
         pipeline.addLast("encoder",new RtspEncoder());
         pipeline.addLast("handler", new RtspHandler());
+        pipeline.addLast("logging",new LoggingHandler(LogLevel.WARN));
 
     }
 }

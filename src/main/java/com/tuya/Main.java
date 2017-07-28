@@ -7,6 +7,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.Slf4JLoggerFactory;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -18,7 +21,11 @@ public class Main {
 
 
     public static void main(String args[]) throws NoSuchAlgorithmException {
-
+        String path = Main.class.getClass().getResource("/")
+                .getPath()
+                + "log4j.properties";
+        PropertyConfigurator.configure (path);
+        InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         ServerBootstrap bootstrap =new ServerBootstrap();
