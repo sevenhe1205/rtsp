@@ -24,11 +24,7 @@ public class Main {
     public static void main(String args[]) throws NoSuchAlgorithmException {
         LogManager.resetConfiguration();
         InternalLoggerFactory.setDefaultFactory( Log4JLoggerFactory.INSTANCE);
-        String path = Main.class.getClass().getResource("/")
-                .getPath()
-                + "log4j.properties";
-
-        PropertyConfigurator.configure (path);
+        PropertyConfigurator.configure ("classpath:log4j.properties");
 
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
