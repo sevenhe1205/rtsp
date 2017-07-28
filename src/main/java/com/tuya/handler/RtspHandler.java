@@ -255,7 +255,6 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
                 .getBytes()));
         response.headers().set(CONTENT_TYPE, "text/plain");
         response.headers().set(CONTENT_LENGTH, response.content().readableBytes());
-        response.headers().set(CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
         ctx.write(response);
         ctx.flush();
     }

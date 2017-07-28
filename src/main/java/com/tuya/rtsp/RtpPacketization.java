@@ -148,7 +148,7 @@ public class RtpPacketization implements Runnable {
                 ByteBuffer byteBuffer = body.buf();
 
                 buffer.writeBytes(byteBuffer.array(),7,byteBuffer.limit()-7);
-                System.out.println(ByteBufUtil.hexDump(buffer));
+                System.out.println(byteBuffer.limit());
 
 
                 ctx.writeAndFlush(buffer);
@@ -156,11 +156,7 @@ public class RtpPacketization implements Runnable {
 
 
             }
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        }catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
