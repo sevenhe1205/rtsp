@@ -302,7 +302,9 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         System.out.println("====================response==========================");
         System.out.println();
         System.out.println(response);
-        System.out.println(response.content().toString());
+        byte[] bytes =new byte[response.content().capacity()];
+        response.content().readBytes(bytes);
+        System.out.println(new String(bytes));
         System.out.println();
         System.out.println("======================================================");
         System.out.println();
