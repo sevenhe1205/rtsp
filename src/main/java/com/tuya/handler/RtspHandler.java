@@ -159,7 +159,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response.headers().set(RtspHeaderNames.CONTENT_LENGTH,String.valueOf(sdp.length()));
         response.content().writeBytes(buffer);
         buffer.release();
-        showResponse(response);
+        showResponse(response,sdp);
         writeResponseWithFuture(ctx,request,response);
     }
 
