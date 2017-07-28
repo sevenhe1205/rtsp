@@ -88,13 +88,14 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response.headers().set(RtspHeaderNames.RTP_INFO,rtpInfo);
         response.headers().set(RtspHeaderNames.RANGE,"npt=0.000-");
 
-        //writeResponseWithFuture(ctx, request, response);
+
 
         showResponse(response);
 	
         RtpPacketization rtpPacket = new RtpPacketization(ctx, filePath);
         rtpThread = new Thread(rtpPacket);
         rtpThread.start();
+        writeResponseWithFuture(ctx, request, response);
     }
     private void handleRtspSETUPMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
