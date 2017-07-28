@@ -49,8 +49,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
     }
 
     private void handleRtspTEARDOWNMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
-        // TODO Auto-generated method stub
-        System.out.println("TEARDOWN");
+        System.out.println(request);
         if(rtpThread !=null) {
             rtpThread.interrupt();
         }
@@ -63,9 +62,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
     }
 
     private void handleRtspPLAYMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
-        // TODO Auto-generated method stub
-        System.out.println("PLAY");
-
+	System.out.println("request "+request);
         FullHttpResponse response = null;
         String sessionID = request.headers().get(RtspHeaderNames.SESSION);
         String uri = request.uri();
@@ -87,26 +84,18 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
         response = new DefaultFullHttpResponse(RtspVersions.RTSP_1_0, RtspResponseStatuses.OK);
         response.headers().set(RtspHeaderNames.CSEQ,request.headers().get(RtspHeaderNames.CSEQ));
         response.headers().set(RtspHeaderNames.SESSION,sessionID);
-        response.headers().set(RtspHeaderNames.RTP_INFO,rtpInfo);
-        response.headers().set(RtspHeaderNames.RANGE,"npt=0.000-");
-        try {
-            Thread.sleep(1000l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //response.headers().set(RtspHeaderNames.RTP_INFO,rtpInfo);
+        //response.headers().set(RtspHeaderNames.RANGE,"npt=0.000-");
         writeResponseWithFuture(ctx, request, response);
-        try {
-            Thread.sleep(1000l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+	System.out.println("response "+response);
+	
         RtpPacketization rtpPacket = new RtpPacketization(ctx, filePath);
         rtpThread = new Thread(rtpPacket);
-        rtpThread.start();
+        //rtpThread.start();
     }
     private void handleRtspSETUPMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
-        System.out.println("SETUP");
+        System.out.println(request);
 
         FullHttpResponse response = null;
 
@@ -149,7 +138,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
 
     private void handleRtspDESCRIBEMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
-        System.out.println("DESCRIBE");
+        System.out.println(request);
 
         String uri = request.uri();
         String ipAddress = ctx.channel().localAddress().toString();
@@ -209,7 +198,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
 
     private void handleRtspOPTIONSMethod(ChannelHandlerContext ctx, DefaultHttpRequest request) {
         // TODO Auto-generated method stub
-        System.out.println("OPTIONS");
+        System.out.println(request);
         String options = RtspMethods.OPTIONS.name()+", "+RtspMethods.DESCRIBE.name()+", "+RtspMethods.SETUP.name()
                 +", "+RtspMethods.TEARDOWN.name()+", "+RtspMethods.PLAY.name()+", "+ RtspMethods.PAUSE.name();
 
