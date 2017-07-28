@@ -8,6 +8,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.Log4J2LoggerFactory;
+import io.netty.util.internal.logging.Log4JLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -24,8 +26,10 @@ public class Main {
         String path = Main.class.getClass().getResource("/")
                 .getPath()
                 + "log4j.properties";
+        System.out.println(path);
         PropertyConfigurator.configure (path);
-        InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
+
+        InternalLoggerFactory.setDefaultFactory( Log4J2LoggerFactory.INSTANCE);
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         ServerBootstrap bootstrap =new ServerBootstrap();
