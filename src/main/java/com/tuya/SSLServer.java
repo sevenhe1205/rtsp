@@ -21,9 +21,9 @@ public class SSLServer {
         // 通过套接字工厂，获取一个服务器端套接字
 
         System.setProperty("javax.net.ssl.keyStore", "/Users/tuya/tls/sslserverkeys");
-        System.setProperty("javax.net.ssl.keyStorePassword", "123456");
+        System.setProperty("javax.net.ssl.keyStorePassword", "xxxxx");
         System.setProperty("javax.net.ssl.trustStore", "/Users/tuya/tls/sslservertrust");
-        System.setProperty("javax.net.ssl.trustStorePassword", "123456");
+        System.setProperty("javax.net.ssl.trustStorePassword", "xxxxx");
 
         SSLServerSocketFactory socketFactory = (SSLServerSocketFactory)
                 SSLServerSocketFactory.getDefault();
