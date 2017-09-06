@@ -110,8 +110,8 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        //String path = uri.getPath();
-        String filePath = "/usr/local/movies/sample_h264_100kbit.mp4";
+        String path = uri.getPath();
+        String filePath = filePath();
 
 
         File file = new File(filePath);
@@ -126,6 +126,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
             ssrc="00018787";
         }else {
             ssrc="00200c07";
+
         }
         String serverTransport = "RTP/AVP/TCP;unicast"
                 + ";interleaved="+interleaved.substring(interleaved.indexOf("=")+1)
@@ -287,7 +288,7 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
     }
 
    private static String filePath(){
-	return "/home/heshaoqiong/packet/DarwinStreamingSrvrlinux-Linux/sample_h264_300kbit.mp4";
+	return "/usr/local/movies/sample_h264_300kbit.mp4";
 	}
 
 

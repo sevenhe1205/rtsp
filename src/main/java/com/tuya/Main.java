@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by heshaoqiong on 2017/7/17.
  */
 public class Main {
-    public static final int PORT=8443;
+    public static final int PORT=443;
 
 
     public static void main(String args[]) throws NoSuchAlgorithmException {
