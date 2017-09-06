@@ -33,12 +33,12 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
-        /*
+
         SSLEngine engine = SecureSslContextFactory.getServerContext().createSSLEngine();
         engine.setUseClientMode(false);
         engine.setNeedClientAuth(false);
         pipeline.addFirst(new SslHandler(engine));
-        */
+
 	//pipeline.addLast(new HttpRequestDecoder());
         //pipeline.addLast(new HttpResponseEncoder());
         pipeline.addLast("decoder",new RtspDecoder());
