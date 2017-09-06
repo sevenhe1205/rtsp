@@ -110,8 +110,8 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        String path = uri.getPath();
-        String filePath = filePath();
+        //String path = uri.getPath();
+        String filePath = "/usr/local/movies/sample_h264_100kbit.mp4";
 
 
         File file = new File(filePath);
@@ -167,12 +167,14 @@ public class RtspHandler extends SimpleChannelInboundHandler<DefaultHttpRequest>
 
     private String generateSDP(String filePath, String ipAddress) {
         // TODO Auto-generated method stub
+        /*
         File file = new File(filePath);
 
         if(!file.exists()){
             System.err.println("File Not Exists");
             return null;
         }
+        */
 
         StringBuilder sdpStr = new StringBuilder()
                 .append("v=0\n")									/* 会话版本 */
